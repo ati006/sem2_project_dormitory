@@ -2,9 +2,9 @@ package model;
 
 public class Bedroom extends Room {
     private int roomNumber;
-    private string bedroomType;
+    private int bedroomType;
 
-    public Bedroom (int roomID, String roomType, String description){
+    public Bedroom (int roomID, String description){
         this.roomID = roomID;
         this.description = description;
     }
@@ -15,5 +15,13 @@ public class Bedroom extends Room {
 
 	public void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
+	}
+
+	public int getBedroomType() {
+		return bedroomType;
+	}
+
+	public void setBedroomType(int bedroomType) {
+		this.bedroomType = bedroomType;
 	}
 }
