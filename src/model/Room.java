@@ -5,11 +5,11 @@ public class Room {
     private String description;
 
     public Room() {
-        this();
     }
 
     public Room(int roomID, String description) {
-        this(roomID, description);
+        this.roomID=roomID;
+        this.description= description;
     }
 
     //GETTER AND SETTER

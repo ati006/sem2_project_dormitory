@@ -5,8 +5,7 @@ public class Bedroom extends Room {
     private int bedroomType;
 
     public Bedroom (int roomID, String description){
-        this.roomID = roomID;
-        this.description = description;
+        super(roomID, description);
     }
 
 	public int getRoomNumber() {
