@@ -26,7 +26,7 @@ public class Room {
     }
 
 
-    public void createRoom() {
+ /*   public void createRoom() {
         System.out.println("Enter description");
         String varDescription = System.in();
 
@@ -35,4 +35,5 @@ public class Room {
         Room(varID, varDescription);
 
     }
+ */
 }
