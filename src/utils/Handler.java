@@ -1,5 +1,6 @@
 package utils;
 
+import javax.swing.JPanel;
 import Gfx.Display;
 
 public class Handler {
@@ -24,4 +25,7 @@ public class Handler {
 		public void setDisplay(Display display) { 
 			this.display = display; 
 		} 
+		public JPanel getMainPanel() {
+			return display.getMainPanel(); 
+			}
 }

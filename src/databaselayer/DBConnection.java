@@ -3,25 +3,52 @@ package databaselayer;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 
 
 public class DBConnection {   
 	//Constants used to get access to the database
 	
-	private static final String  driver = "jdbc:sqlserver://localhost:1433";;
-    private static final String  databaseName = "????????????????";
+	//private final String  driver = "jdbc:sqlserver://localhost:1433";
+    private final String  databaseName = "UCHouse";
     
-    private static String  userName = ";user=sa;encrypt=true;trustServerCertificate=true";
-    private static String password = ";password=secret2022*";
+    //private String  userName = ";user=sa;encrypt=true;trustServerCertificate=true";
+    //private String password = ";password=secret2022*";
    
     private DatabaseMetaData dma;
     private static Connection con;
+    private final String dbms = "sqlserver";
+    private final String serverName = "localhost";
+    private final String portNumber = "1433";
+    private String userName = "sa";
+    private String password = "secret2022*";
     
     // an instance of the class is generated
     private static DBConnection  instance = null;
+    private DBConnection() {
+
+        con = null;
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", this.userName);
+        connectionProps.put("password", this.password);
+
+            try {
+            	try {
+					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				con = DriverManager.getConnection(
+						"jdbc:" + this.dbms + "://"+this.serverName +":" + this.portNumber + "/" + this.databaseName ,connectionProps);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        System.out.println("Connected to database");
+    }
 
     // the constructor is private to ensure that only one object of this class is created
-    private DBConnection()
+    /*private DBConnection()
     {
     	String url = driver + databaseName + userName + password;
 
@@ -49,7 +76,7 @@ public class DBConnection {
             System.out.println(e.getMessage());
             System.out.println(url);
         }//end catch
-    }//end  constructor
+    }//end  constructor */
 	   
   //closeDb: closes the connection to the database
     public static void closeConnection()

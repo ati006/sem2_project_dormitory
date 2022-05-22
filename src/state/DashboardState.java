@@ -1,7 +1,8 @@
 package state;
 
-import java.awt.Color;
 import utils.Handler;
+import javax.swing.*;
+import java.awt.event.*;
 
 public class DashboardState extends State {
 
@@ -9,7 +10,12 @@ public class DashboardState extends State {
 
 	public DashboardState(Handler handler) {
 		super(handler);
-		this.setBackground(new Color(0x3C3F41));
+		JButton button = new JButton("Create Booking");
+		button.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) {
+				State.changeState(new MapReservationState(handler), handler);
+			}
+		});
+		this.add(button);
 	}
-
 }

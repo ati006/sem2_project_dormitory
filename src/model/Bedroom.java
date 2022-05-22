@@ -2,10 +2,12 @@ package model;
 
 public class Bedroom extends Room {
     private int roomNumber;
-    private int bedroomType;
+    private String bedroomType;
 
-    public Bedroom (int roomID, String description){
+    public Bedroom (int roomID, String description, int roomNumber, String bedroomType){
         super(roomID, description);
+        this.roomNumber = roomNumber;
+        this.bedroomType = bedroomType;
     }
 
 	public int getRoomNumber() {
@@ -16,11 +18,11 @@ public class Bedroom extends Room {
 		this.roomNumber = roomNumber;
 	}
 
-	public int getBedroomType() {
+	public String getBedroomType() {
 		return bedroomType;
 	}
 
-	public void setBedroomType(int bedroomType) {
+	public void setBedroomType(String bedroomType) {
 		this.bedroomType = bedroomType;
 	}
 }
