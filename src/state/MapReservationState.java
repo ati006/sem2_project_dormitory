@@ -8,6 +8,7 @@ import utils.Handler;
 import model.Bedroom;
 import java.util.ArrayList;
 
+/*second state, map of the bedrooms*/
 
 public class MapReservationState extends State{
 
@@ -33,7 +34,8 @@ public class MapReservationState extends State{
 		  for(Bedroom bedroom : bedrooms)
 			  this.add(bedroomButton(String.valueOf(bedroom.getRoomNumber()) + bedroom.getBedroomType()));
 		}
-	private JButton bedroomButton(String name) {
+	
+	private JButton bedroomButton(String name) { 
 		  JButton button = new JButton(name);
 		  button.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {

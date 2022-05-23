@@ -4,6 +4,7 @@ import utils.Handler;
 import javax.swing.*;
 import java.awt.*;
 
+/*the class is used to display the differents states*/
 
 public class Display extends JFrame {
 	private static final long serialVersionUID = 1L;

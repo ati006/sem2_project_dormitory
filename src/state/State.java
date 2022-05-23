@@ -4,6 +4,9 @@ import utils.Handler;
 import java.awt.*;
 import javax.swing.JPanel;
 
+/*the state class is used to Manage the graphic part of all states at the same time
+ * it is also used (static part) to manage the transition from one state to another*/
+
 public abstract class State extends JPanel {
 	
     /* --------------- STATIC --------------- */

@@ -3,6 +3,9 @@ package utils;
 import javax.swing.JPanel;
 import Gfx.Display;
 
+/*the handler is intended to keep the information of the window in memory in order to reuse it during a change of state
+currently only the size of the window is kept*/
+
 public class Handler {
 		private int width;
 		private int height;
