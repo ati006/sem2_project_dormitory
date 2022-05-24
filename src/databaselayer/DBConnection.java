@@ -34,17 +34,19 @@ public class DBConnection {
         connectionProps.put("password", this.password);
 
             try {
+            	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             	try {
-					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+            		con = DriverManager.getConnection(
+    						"jdbc:" + this.dbms + "://"+this.serverName + ":" + this.portNumber 
+    						+ ";databaseName=UCHouse;integratedSecurity=true;encrypt=true; trustServerCertificate=false;"
+    						 ,connectionProps);
+            		System.out.println("Connected to database");
+    			} catch (SQLException sqlE) {
+					sqlE.printStackTrace();
 				}
-				con = DriverManager.getConnection(
-						"jdbc:" + this.dbms + "://"+this.serverName +":" + this.portNumber + "/" + this.databaseName ,connectionProps);
-			} catch (SQLException e) {
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-        System.out.println("Connected to database");
     }
 
     // the constructor is private to ensure that only one object of this class is created

@@ -1,7 +1,5 @@
 
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import java.sql.*;
 import Gfx.Display;
 import databaselayer.DBConnection;
 import state.*;
@@ -19,6 +17,10 @@ public class Main {
 		try {
 			statement = DBConnection.getInstance().getDBcon().createStatement();
 			statement.executeUpdate(query);
+			ResultSet rs = statement.executeQuery("SELECT * FROM Student");
+			while(rs.next()){
+				  System.out.println("First Name: " + rs.getString("LastName"));
+				}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
