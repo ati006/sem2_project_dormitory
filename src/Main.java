@@ -15,11 +15,11 @@ public class Main {
 		String query = "INSERT INTO Student VALUES (Kieran, Charpentier, 0101010101, 01010101012);";
 		Statement statement;
 		try {
-			statement = DBConnection.getInstance().getDBcon().createStatement();
+			statement = DBConnection.getInstance().getConnection().createStatement();
 			statement.executeUpdate(query);
 			ResultSet rs = statement.executeQuery("SELECT * FROM Student");
 			while(rs.next()){
-				  System.out.println("First Name: " + rs.getString("LastName"));
+				  System.out.println("last Name: " + rs.getString("LastName"));
 				}
 		} catch (SQLException e1) {
 			e1.printStackTrace();

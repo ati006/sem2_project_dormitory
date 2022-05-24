@@ -1,34 +1,41 @@
 package databaselayer;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
+import java.sql.*;
 
 
 public class DBConnection {   
 	//Constants used to get access to the database
 	
-	//private final String  driver = "jdbc:sqlserver://localhost:1433";
-    private final String  databaseName = "UCHouse";
     
     //private String  userName = ";user=sa;encrypt=true;trustServerCertificate=true";
     //private String password = ";password=secret2022*";
    
-    private DatabaseMetaData dma;
-    private static Connection con;
-    private final String dbms = "sqlserver";
-    private final String serverName = "localhost";
-    private final String portNumber = "1433";
-    private String userName = "sa";
-    private String password = "secret2022*";
+    private Connection con;
+    private static final String serverAddress = "localhost";
+    private static final int serverPort= 1433;
+    private static String userName = "sa";
+    private static String password = "secret2022*";
+    private static final String dbName = "HCHouse";
+    private static final String driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     
     // an instance of the class is generated
     private static DBConnection  instance = null;
     private DBConnection() {
 
-        con = null;
+    	String connectionString = String.format("jdbc:sqlserver://%s:%d;databaseName=%s;user=%s;password=%s;encrypt=false", 
+                serverAddress, serverPort, dbName, userName, password);
+        try {
+            Class.forName(driverClass);
+            con = DriverManager.getConnection(connectionString);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Could not load JDBC driver");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Could not connect to database " + dbName + "@" + serverAddress + ":" + serverPort + " as user " + userName + " using password **");
+            System.out.println("Connection string was: " + connectionString.substring(0, connectionString.length() - password.length()) + "....");
+            e.printStackTrace();
+        }
+     /*   con = null;
         Properties connectionProps = new Properties();
         connectionProps.put("user", this.userName);
         connectionProps.put("password", this.password);
@@ -46,63 +53,64 @@ public class DBConnection {
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-			}
+			}*/
+    }
+    public void startTransaction() throws SQLException {
+        con.setAutoCommit(false);
     }
 
-    // the constructor is private to ensure that only one object of this class is created
-    /*private DBConnection()
-    {
-    	String url = driver + databaseName + userName + password;
+    public void commitTransaction() throws SQLException {
+        con.commit();
+        con.setAutoCommit(true);
+    }
 
-        try{
-            //load of driver
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            System.out.println("Driver class loaded ok");
-          
+    public void rollbackTransaction() throws SQLException {
+        con.rollback();
+        con.setAutoCommit(true);
+    }
+    public int executeUpdate(String sql) throws SQLException {
+        System.out.println("DBConnection, Updating: " + sql);
+        int res = -1;
+        try (Statement s = con.createStatement()){
+            res = s.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
         }
-        catch(Exception e){
-            System.out.println("Cannot find the driver");
-            System.out.println(e.getMessage());
-        }
-        try{
-            //connection to the database
-            con = DriverManager.getConnection(url);
-            con.setAutoCommit(true);
-            dma = con.getMetaData(); // get meta data
-            System.out.println("Connection to " + dma.getURL());
-            System.out.println("Driver " + dma.getDriverName());
-            System.out.println("Database product name " + dma.getDatabaseProductName());
-        }//end try
-        catch(Exception e){
-            System.out.println("Problems with the connection to the database:");
-            System.out.println(e.getMessage());
-            System.out.println(url);
-        }//end catch
-    }//end  constructor */
-	   
-  //closeDb: closes the connection to the database
-    public static void closeConnection()
-    {
-       	try{
+        return res;
+    }
+public void disconnect() {
+        try {
             con.close();
-            instance= null;
-            System.out.println("The connection is closed");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-         catch (Exception e){
-            System.out.println("Error trying to close the database " +  e.getMessage());
-         }
-    }//end closeDB
+    }
+public int executeInsertWithIdentity(String sql) throws SQLException  {
+        System.out.println("DBConnection, Inserting: " + sql);
+        int res = -1;
+        try (Statement s = con.createStatement()) {
+            res = s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            if(res > 0) {
+                ResultSet rs = s.getGeneratedKeys();
+                rs.next();
+                res = rs.getInt(1);
+            }
+            //s.close(); -- the try block does this for us now
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return res;
+    }
+    
 		
-    //getDBcon: returns the singleton instance of the DB connection
-    public Connection getDBcon()
+    //getConnection: returns the singleton instance of the DB connection
+    public Connection getConnection()
     {
        return con;
     }
-    //getDBcon: returns the singleton instance of the DB connection
-    public static boolean instanceIsNull()
-    {
-       return (instance == null);
-    }    
     //this method is used to get the instance of the connection
     public static DBConnection getInstance()
     {

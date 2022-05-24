@@ -51,7 +51,7 @@ public class BookingState extends State{
 						textField5.getText()+");";
 				Statement statement;
 				try {
-					statement = DBConnection.getInstance().getDBcon().createStatement();
+					statement = DBConnection.getInstance().getConnection().createStatement();
 					statement.executeUpdate(query);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
