@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import controlLayer.BedroomCtr;
 import utils.Handler;
 import model.Bedroom;
 import java.util.ArrayList;
@@ -16,18 +17,8 @@ public class MapReservationState extends State{
 
 	public MapReservationState(Handler handler) {
 		super(handler);
-		this.setLayout(new GridLayout(3, 3));
-		ArrayList<Bedroom> bedrooms = new ArrayList<Bedroom>();
-		bedrooms.add(new Bedroom(1, "",1, "C"));
-		bedrooms.add(new Bedroom(1, "",2, "E"));
-		bedrooms.add(new Bedroom(1, "",3, "C"));
-		bedrooms.add(new Bedroom(1, "",4, "E"));
-		bedrooms.add(new Bedroom(1, "",5, "E"));
-		bedrooms.add(new Bedroom(1, "",6, "E"));
-		bedrooms.add(new Bedroom(1, "",7, "C"));
-		bedrooms.add(new Bedroom(1, "",8, "C"));
-		bedrooms.add(new Bedroom(1, "",61, "F"));
-		createButtons(bedrooms);
+		this.setLayout(new GridLayout(9, 6));
+		createButtons(BedroomCtr.getInstance().getBedrooms());
 		
 	}
 	private void createButtons(ArrayList<Bedroom> bedrooms){

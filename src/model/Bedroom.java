@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.*;
+
 public class Bedroom extends Room {
     private int roomNumber;
     private String bedroomType;
@@ -25,4 +27,10 @@ public class Bedroom extends Room {
 	public void setBedroomType(String bedroomType) {
 		this.bedroomType = bedroomType;
 	}
+	public Bedroom(ResultSet rs) throws SQLException {
+		super(rs.getInt("roomID"), rs.getString("description"));
+		this.roomNumber = rs.getInt("RoomNumber");
+		this.bedroomType = rs.getString("bedroomType");
+	}
+	
 }

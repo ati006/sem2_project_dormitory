@@ -1,1 +1,4 @@
-/test/
+/controlLayer/
+/model/
+/databaselayer/
+/state/

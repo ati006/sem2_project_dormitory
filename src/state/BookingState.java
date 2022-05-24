@@ -3,59 +3,49 @@ package state;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import java.sql.Date;
 import javax.swing.*;
-
-import databaselayer.DBConnection;
+import controlLayer.BookingCtr;
+import controlLayer.StudentCtr;
+import model.Booking;
+import model.Student;
 import utils.Handler;
 
 
 public class BookingState extends State{
-	JTextField  textField1, textField2, textField3, textField4, textField5, textField6;
-	JLabel label1, label2, label3, label4, label5, label6;
+	private static final long serialVersionUID = 1L;
+	
+	JTextField  firstNameField, lastNameField, phoneNumberField, cprField, startDateField;
+	JLabel firstNameLabel, lastNameLabel, phoneNumberLabel, cprLabel, startDateLabel;
 
 	public BookingState(Handler handler, String data) {
 		super(handler);
-		label1 = new JLabel("First Name");
-		label2 = new JLabel("Last Name");
-		label3 = new JLabel("Email");
-		label4 = new JLabel("Phone Number");
-		label5 = new JLabel("CPR");
-		label6 = new JLabel("Start Date");
-		textField1 = new JTextField();
-		textField2 = new JTextField();
-		textField3 = new JTextField();
-		textField4 = new JTextField(10);
-		textField5 = new JTextField(11);
-		textField6 = new JTextField();
+		firstNameLabel = new JLabel("First Name");
+		lastNameLabel = new JLabel("Last Name");
+		phoneNumberLabel = new JLabel("Phone Number");
+		cprLabel = new JLabel("CPR");
+		startDateLabel = new JLabel("Start Date");
+		firstNameField = new JTextField();
+		lastNameField = new JTextField();
+		phoneNumberField = new JTextField(10);
+		cprField = new JTextField(11);
+		startDateField = new JTextField();
 		this.setLayout(new GridLayout(6, 2));
-		this.add(label1);
-		this.add(textField1);
-		this.add(label2);
-		this.add(textField2);
-		this.add(label3);
-		this.add(textField3);
-		this.add(label4);
-		this.add(textField4);
-		this.add(label5);
-		this.add(textField5);
-		this.add(label6);
-		this.add(textField6);
+		this.add(firstNameLabel);
+		this.add(firstNameField);
+		this.add(lastNameLabel);
+		this.add(lastNameField);
+		this.add(phoneNumberLabel);
+		this.add(phoneNumberField);
+		this.add(cprLabel);
+		this.add(cprField);
+		this.add(startDateLabel);
+		this.add(startDateField);
 		JButton button = new JButton("Create Booking");
 		button.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
-				String query = "INSERT INTO Student VALUES ("+ textField1.getText() + "," +
-						textField2.getText() + "," + textField4.getText() + "," + 
-						textField5.getText()+");";
-				Statement statement;
-				try {
-					statement = DBConnection.getInstance().getConnection().createStatement();
-					statement.executeUpdate(query);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				StudentCtr.insertStudent(new Student(firstNameField.getText(),lastNameField.getText(),Integer.valueOf(phoneNumberField.getText()),Integer.valueOf(cprField.getText())));
+				BookingCtr.insertBooking(new Booking(BookingCtr.getInstance().getLastBookingId()+1, Date.valueOf(startDateField.getText())));
 				State.changeState(new DashboardState(handler), handler);
 			}
 		});

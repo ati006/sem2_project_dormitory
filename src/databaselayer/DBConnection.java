@@ -35,25 +35,7 @@ public class DBConnection {
             System.out.println("Connection string was: " + connectionString.substring(0, connectionString.length() - password.length()) + "....");
             e.printStackTrace();
         }
-     /*   con = null;
-        Properties connectionProps = new Properties();
-        connectionProps.put("user", this.userName);
-        connectionProps.put("password", this.password);
 
-            try {
-            	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            	try {
-            		con = DriverManager.getConnection(
-    						"jdbc:" + this.dbms + "://"+this.serverName + ":" + this.portNumber 
-    						+ ";databaseName=UCHouse;integratedSecurity=true;encrypt=true; trustServerCertificate=false;"
-    						 ,connectionProps);
-            		System.out.println("Connected to database");
-    			} catch (SQLException sqlE) {
-					sqlE.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}*/
     }
     public void startTransaction() throws SQLException {
         con.setAutoCommit(false);
@@ -79,12 +61,12 @@ public class DBConnection {
         }
         return res;
     }
-public void disconnect() {
-        try {
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void disconnect() {
+        	try {
+        		con.close();
+        	} catch (SQLException e) {
+        		e.printStackTrace();
+        	}
     }
 public int executeInsertWithIdentity(String sql) throws SQLException  {
         System.out.println("DBConnection, Inserting: " + sql);
@@ -119,6 +101,12 @@ public int executeInsertWithIdentity(String sql) throws SQLException  {
           instance = new DBConnection();
         }
         return instance;
+    }
+    public ResultSet select(String query) throws SQLException {
+    	return con.createStatement().executeQuery(query);
+    }
+    public void executeDelete(String query) throws SQLException {
+			con.createStatement().execute(query);
     }
 
 }//end DbConnection

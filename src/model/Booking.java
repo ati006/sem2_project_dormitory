@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Booking {
 	private int bookingID;
@@ -25,6 +27,13 @@ public class Booking {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+	public String toQuery() {
+		return Integer.toString(bookingID) + "," + startDate.toString();
+	}
+	public Booking(ResultSet rs) throws SQLException {
+		this.bookingID = rs.getInt("bookingID");
+		this.startDate = rs.getDate("StartDate");
 	}
 
 }
