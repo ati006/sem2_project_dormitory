@@ -4,7 +4,7 @@ import utils.Handler;
 import javax.swing.*;
 import java.awt.event.*;
 
-/*first state, main menu*/
+/*first state, main menu, inherit from State*/
 
 public class DashboardState extends State {
 

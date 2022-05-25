@@ -2,6 +2,9 @@ package model;
 
 import java.sql.*;
 
+
+//Bedroom class, inherit from Room
+
 public class Bedroom extends Room {
     private int roomNumber;
     private String bedroomType;
@@ -27,6 +30,14 @@ public class Bedroom extends Room {
 	public void setBedroomType(String bedroomType) {
 		this.bedroomType = bedroomType;
 	}
+	
+	//needed for the request, used to get all the parameters to String type
+		public String toQuery() {
+			return Integer.toString(roomNumber) + "," + bedroomType ;
+		}
+	
+	//second constructor, used for the sql requests
+	
 	public Bedroom(ResultSet rs) throws SQLException {
 		super(rs.getInt("roomID"), rs.getString("description"));
 		this.roomNumber = rs.getInt("RoomNumber");

@@ -33,6 +33,7 @@ public abstract class State extends JPanel {
     State(Handler handler) {
         this.handler = handler;
         this.setPreferredSize(new Dimension(handler.getHeight(), handler.getHeight()));
-        this.setBackground(new Color(0xe1e1e1));
+        this.setBackground(new Color(0xe1e1e1)); 
+        //background for all the states rather than putting it in each state
     }
 }

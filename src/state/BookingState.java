@@ -11,6 +11,7 @@ import model.Booking;
 import model.Student;
 import utils.Handler;
 
+//third state, Menu where we enter the info of the student and the starting date
 
 public class BookingState extends State{
 	private static final long serialVersionUID = 1L;
@@ -41,11 +42,15 @@ public class BookingState extends State{
 		this.add(cprField);
 		this.add(startDateLabel);
 		this.add(startDateField);
+		//getting all the info
 		JButton button = new JButton("Create Booking");
 		button.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
+				//creating new Student 
 				StudentCtr.insertStudent(new Student(firstNameField.getText(),lastNameField.getText(),Integer.valueOf(phoneNumberField.getText()),Integer.valueOf(cprField.getText())));
+				//creating new Booking
 				BookingCtr.insertBooking(new Booking(BookingCtr.getInstance().getLastBookingId()+1, Date.valueOf(startDateField.getText())));
+				//returning to the Dashboard
 				State.changeState(new DashboardState(handler), handler);
 			}
 		});

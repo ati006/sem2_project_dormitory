@@ -41,9 +41,11 @@ public class Student {
 	public void setCPR(int CPR) {
 		this.CPR = CPR;
 	}
+	//return all the parameter to string type for the requests
 	public String toQuery() {
 		return Integer.toString(CPR) +","+ firstName +","+ lastName +","+ Integer.toString(phoneNumber);
 	}
+	//second constructor for the requests
 	public Student(ResultSet rs) throws SQLException {
 		this.firstName = rs.getString("firstName");
 		this.lastName = rs.getString("lastName");

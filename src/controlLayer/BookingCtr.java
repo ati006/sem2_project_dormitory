@@ -15,6 +15,9 @@ public class BookingCtr {
 	public BookingCtr() {
 		readBookings();
 	}
+	
+	//select everything from the Booking table
+	
 	public void readBookings() {
 		bookings = new ArrayList<Booking>();
 		String query = "SELECT * FROM Booking";
@@ -37,6 +40,9 @@ public class BookingCtr {
 	public ArrayList<Booking> getBookings(){
 		return bookings;
 	}
+	
+	//insertBooking is used to create new booking the DB
+	
 	public static void insertBooking(Booking b) {
 		String query = "INSERT INTO Booking VALUES(" + b.toQuery() + ");";
 		try {

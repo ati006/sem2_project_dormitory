@@ -13,8 +13,8 @@ public class Display extends JFrame {
 
 	public Display(Handler handler) {
         this.setTitle("Dashboard");
-        this.setPreferredSize(new Dimension(handler.getWidth(), handler.getHeight()));
-        this.setResizable(true);
+        this.setPreferredSize(new Dimension(handler.getWidth(), handler.getHeight())); //original size of the window
+        this.setResizable(true); //allows the resizing of the window
         mainPanel = new JPanel(cl);
         this.add(mainPanel);
         this.pack();

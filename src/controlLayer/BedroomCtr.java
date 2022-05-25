@@ -14,6 +14,7 @@ public class BedroomCtr {
 	public BedroomCtr() {
 		readBedrooms();
 	}
+	//select everything from the bedroom table
 	public void readBedrooms() {
 		bedrooms = new ArrayList<Bedroom>();
 		String query = "SELECT * FROM Bedroom";

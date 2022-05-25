@@ -25,15 +25,4 @@ public class Room {
         this.description = description;
     }
 
-
- /*   public void createRoom() {
-        System.out.println("Enter description");
-        String varDescription = System.in();
-
-        int varID = getLastID() + 1;
-
-        Room(varID, varDescription);
-
-    }
- */
 }
