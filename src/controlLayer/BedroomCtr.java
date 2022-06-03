@@ -17,7 +17,7 @@ public class BedroomCtr {
 	//select everything from the bedroom table
 	public void readBedrooms() {
 		bedrooms = new ArrayList<Bedroom>();
-		String query = "SELECT * FROM Bedroom";
+		String query = "SELECT * FROM Bedroom JOIN Room ON Bedroom.roomID=Room.roomID;";
 		try {
 			ResultSet response = DBConnection.getInstance().select(query);
 			while(response.next()){

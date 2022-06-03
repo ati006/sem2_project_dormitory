@@ -15,7 +15,7 @@ public class DBConnection {
     private static final int serverPort= 1433;
     private static String userName = "sa";
     private static String password = "secret2022*";
-    private static final String dbName = "HCHouse";
+    private static final String dbName = "UCHouse";
     private static final String driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     
     // an instance of the class is generated

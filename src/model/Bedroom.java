@@ -32,9 +32,9 @@ public class Bedroom extends Room {
 	}
 	
 	//needed for the request, used to get all the parameters to String type
-		public String toQuery() {
+	public String toQuery() {
 			return Integer.toString(roomNumber) + "," + bedroomType ;
-		}
+	}
 	
 	//second constructor, used for the sql requests
 	
