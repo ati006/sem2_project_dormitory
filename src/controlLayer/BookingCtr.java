@@ -44,7 +44,7 @@ public class BookingCtr {
 	//insertBooking is used to create new booking the DB
 	
 	public static void insertBooking(Booking b) {
-		String query = "INSERT INTO Booking VALUES(" + b.toQuery() + ");";
+		String query = "INSERT INTO Booking(BookingID, StartDate, CPR, RoomNumber) VALUES(" + b.toQuery() + ");";
 		try {
 			DBConnection.getInstance().executeInsertWithIdentity(query);
 		} catch (SQLException e) {

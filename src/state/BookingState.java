@@ -25,11 +25,11 @@ public class BookingState extends State{
 		lastNameLabel = new JLabel("Last Name");
 		phoneNumberLabel = new JLabel("Phone Number");
 		cprLabel = new JLabel("CPR");
-		startDateLabel = new JLabel("Start Date");
+		startDateLabel = new JLabel("Start Date(YYYY-MM-DD)");
 		firstNameField = new JTextField();
 		lastNameField = new JTextField();
-		phoneNumberField = new JTextField(10);
-		cprField = new JTextField(11);
+		phoneNumberField = new JTextField();
+		cprField = new JTextField();
 		startDateField = new JTextField();
 		this.setLayout(new GridLayout(6, 2));
 		this.add(firstNameLabel);
@@ -47,7 +47,7 @@ public class BookingState extends State{
 		button.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				//creating new Student 
-				StudentCtr.insertStudent(new Student(firstNameField.getText(),lastNameField.getText(),Integer.valueOf(phoneNumberField.getText()),Integer.valueOf(cprField.getText())));
+				StudentCtr.insertStudent(new Student(firstNameField.getText(),lastNameField.getText(),phoneNumberField.getText(),cprField.getText()));
 				//creating new Booking
 				BookingCtr.insertBooking(new Booking(BookingCtr.getInstance().getLastBookingId()+1, Date.valueOf(startDateField.getText())));
 				//returning to the Dashboard

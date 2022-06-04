@@ -31,7 +31,7 @@ public class Booking {
 	
 	//needed for the request, used to get all the parameters to String type
 	public String toQuery() {
-		return Integer.toString(bookingID) + "," + startDate.toString();
+		return "'"+Integer.toString(bookingID)+"'"+","+"'"+startDate.toString()+"'";
 	}
 	
 	//second constructor for the sql requests 

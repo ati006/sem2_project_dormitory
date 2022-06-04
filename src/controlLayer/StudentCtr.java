@@ -42,7 +42,7 @@ public class StudentCtr {
 	//Create a new student s in the table
 	
 	public static void insertStudent(Student s) {
-		String query = "INSERT INTO Student VALUES(" + s.toQuery() + ");";
+		String query = "INSERT INTO Student(CPR, FirstName, LastName, PhoneNumber) VALUES(" + s.toQuery() + ");";
 		try {
 			DBConnection.getInstance().executeInsertWithIdentity(query);
 		} catch (SQLException e) {
