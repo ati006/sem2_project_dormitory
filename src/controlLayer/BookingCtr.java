@@ -52,6 +52,15 @@ public class BookingCtr {
 	public int getLastBookingId() {
 		return lastBookingID; 
 	}
+	public static boolean isBooked(int roomNumber){
+		  String query = "SELECT * FROM Booking where Booking.RoomNumber = " + roomNumber + ";";
+		  try {
+			ResultSet result = DBConnection.getInstance().select(query);
+		    return result.next()!=false;
+		  } catch (SQLException e) {
+		    e.printStackTrace();
+		  } return false;
+	}
 	
 	
 

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import controlLayer.BedroomCtr;
+import controlLayer.BookingCtr;
 import utils.Handler;
 import model.Bedroom;
 import java.util.ArrayList;
@@ -22,12 +23,14 @@ public class MapReservationState extends State{
 	}
 	private void createButtons(ArrayList<Bedroom> bedrooms){
 		  for(Bedroom bedroom : bedrooms)
-			  this.add(bedroomButton(String.valueOf(bedroom.getRoomNumber()) + bedroom.getBedroomType()));
+			  this.add(bedroomButton(bedroom.getRoomNumber(), bedroom.getBedroomType()));
 		} //create buttons for each room in the database 
 	
-	private JButton bedroomButton(String name) { 
-		  JButton button = new JButton(name);
-		  button.addActionListener(new ActionListener() {
+	private JButton bedroomButton(int roomNumber, String bedroomType) {
+		Boolean isBooked= BookingCtr.isBooked(roomNumber);
+		JButton button = new JButton(String.valueOf(roomNumber) + bedroomType);
+		button.setForeground(isBooked ? Color.RED : Color.BLACK);
+		if(!isBooked) button.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	JButton button = (JButton) e.getSource();
 		    	State.changeState(new BookingState(handler,button.getActionCommand()), handler);

@@ -13,13 +13,13 @@ public class StudentGestionState extends State {
 	public StudentGestionState(Handler handler) {
 		  super(handler);
 		  ArrayList<Student> students = StudentCtr.getInstance().getStudents();
-		    JScrollPane pane = new JScrollPane();
 		  JPanel view = new JPanel();
+		  JScrollPane pane = new JScrollPane(view, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		  for(Student student : students) {
-		    view.add(new JLabel(student.toString()));
+			  view.add(new JLabel(student.toString()));
 		  }
 		  pane.add(view);
-		this.add(view);
+		  this.add(view);
 	}
 
 }
