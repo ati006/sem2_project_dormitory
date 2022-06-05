@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
+
 import javax.swing.*;
 import controlLayer.BookingCtr;
 import controlLayer.StudentCtr;
@@ -43,14 +45,29 @@ public class BookingState extends State{
 		this.add(startDateLabel);
 		this.add(startDateField);
 		//getting all the info
+		System.out.println(BookingCtr.getInstance().getLastBookingId());
 		JButton button = new JButton("Create Booking");
 		button.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				//creating new Student 
-				StudentCtr.insertStudent(new Student(firstNameField.getText(),lastNameField.getText(),phoneNumberField.getText(),cprField.getText()));
-				//creating new Booking
-				BookingCtr.insertBooking(new Booking(BookingCtr.getInstance().getLastBookingId()+1, Date.valueOf(startDateField.getText())));
-				//returning to the Dashboard
+				try {
+					Student student = new Student(firstNameField.getText(),lastNameField.getText(),
+							phoneNumberField.getText(),cprField.getText());
+					StudentCtr.insertStudent(student);
+					//creating new Booking
+					try {
+						BookingCtr.insertBooking(new Booking(BookingCtr.getInstance().getLastBookingId()+1, Date.valueOf(startDateField.getText())), 
+								cprField.getText(), 
+								Integer.parseInt(data.substring(0, data.length() - 1)) );
+					} catch (NumberFormatException|SQLException e1) {
+						StudentCtr.deleteStudent(student);
+						e1.printStackTrace();
+					}
+				} catch (SQLException e2) {					
+					e2.printStackTrace();
+				}
+				                 
+				//returning to the dashboard
 				State.changeState(new DashboardState(handler), handler);
 			}
 		});

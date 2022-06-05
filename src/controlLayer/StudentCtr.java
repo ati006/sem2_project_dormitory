@@ -41,19 +41,15 @@ public class StudentCtr {
 	
 	//Create a new student s in the table
 	
-	public static void insertStudent(Student s) {
+	public static void insertStudent(Student s)throws SQLException {
 		String query = "INSERT INTO Student(CPR, FirstName, LastName, PhoneNumber) VALUES(" + s.toQuery() + ");";
-		try {
 			DBConnection.getInstance().executeInsertWithIdentity(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	//Delete a student s from the table
 	
 	public static void deleteStudent(Student s) {
-		String query = "DELETE FROM Student WHERE CPR =" + s.getCPR();
+		String query = "DELETE FROM Student WHERE CPR ='" + s.getCPR()+"'";
 		try {
 			DBConnection.getInstance().executeDelete(query);
 		} catch (SQLException e) {

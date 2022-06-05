@@ -24,10 +24,11 @@ public class BookingCtr {
 		try {
 			ResultSet response = DBConnection.getInstance().select(query);
 			while(response.next()){
-				lastBookingID = bookings.size() > 0 ? bookings.get(bookings.size() - 1).getBookingID() : 0;
 				bookings.add(new Booking(response));
 				
 				}
+			lastBookingID = bookings.size() > 0 ? bookings.get(bookings.size() - 1).getBookingID() : 0;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,14 +44,11 @@ public class BookingCtr {
 	
 	//insertBooking is used to create new booking the DB
 	
-	public static void insertBooking(Booking b) {
-		String query = "INSERT INTO Booking(BookingID, StartDate, CPR, RoomNumber) VALUES(" + b.toQuery() + ");";
-		try {
+	public static void insertBooking(Booking b, String CPR, int RoomNumber)throws SQLException{
+		String query = "INSERT INTO Booking(BookingID, StartDate, CPR, RoomNumber) VALUES(" + b.toQuery() +","+ CPR +","+ Integer.toString(RoomNumber)+");";             
 			DBConnection.getInstance().executeInsertWithIdentity(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
+	
 	public int getLastBookingId() {
 		return lastBookingID; 
 	}
